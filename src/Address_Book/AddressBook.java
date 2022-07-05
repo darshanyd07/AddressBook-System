@@ -1,9 +1,11 @@
 package Address_Book;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class AddressBook
 {
-    static Scanner sc=new Scanner(System.in);
-    public void addContacts() {
+    static Scanner sc = new Scanner(System.in);
+    public void addContacts()
+    {
         Contacts contact = new Contacts();
         System.out.println("enter the first name");
         String firstName=sc.next();
@@ -29,12 +31,23 @@ public class AddressBook
         System.out.println("enter the address");
         String address=sc.next();
         contact.setAddress(address);
-
         System.out.println(contact.toString());
     }
-    public static void main(String[] args) {
-        System.out.println("------Welcome to Address Book---------");
+    public static void main(String[] args)
+    {
+        System.out.println("Welcome to Address Book");
         AddressBook addressbook=new AddressBook();
         addressbook.addContacts();
+        System.out.println("If You Want Add Contact Enter Yes Or No");
+        String status =sc.next();
+        if((status.equals("yes")))
+        {
+            addressbook.addContacts();
+        }
+        else
+        {
+            System.out.println("Bye......");
+        }
+
     }
 }
