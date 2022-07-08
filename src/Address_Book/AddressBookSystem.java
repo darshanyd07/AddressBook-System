@@ -1,8 +1,6 @@
 package Address_Book;
 
 import java.util.Scanner;
-
-
 public class AddressBookSystem {
     public static void main(String[] args) {
         System.out.println("Welcome In Address Book System Program ");

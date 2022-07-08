@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.HashMap;
 
-
 public class OperateContact {
     HashMap<String, AddressBook> contactMap = new HashMap<>();
 
