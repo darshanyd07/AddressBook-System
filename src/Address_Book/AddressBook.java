@@ -1,81 +1,161 @@
-package Address_Book;
-import java.util.*;
-
+import java.util.Scanner;
 public class AddressBook {
-    static Scanner sc = new Scanner(System.in);
-
-    List<Contacts> ContactsArrayList = new ArrayList<Contacts>();
-    public void addContacts() {
-        Contacts contact = new Contacts();
-        System.out.println("enter the firstname");
-        String firstName = sc.next();
-        contact.setFirstName(firstName);
-        System.out.println("enter the lastname");
-        String lastName = sc.next();
-        contact.setLastName(lastName);
-        System.out.println("enter the email");
-        String email = sc.next();
-        contact.setEmail(email);
-        System.out.println("enter the phonenumber");
-        String phoneNumber = sc.next();
-        contact.setPhoneNumber(phoneNumber);
-        System.out.println("enter the zip code");
-        String zip = sc.next();
-        contact.setZip(zip);
-        System.out.println("enter the cityname");
-        String city = sc.next();
-        contact.setCity(city);
-        System.out.println("enter the name of the state");
-        String state = sc.next();
-        contact.setState(state);
-        System.out.println("enter the address");
-        String address = sc.next();
-        contact.setAddress(address);
-        ContactsArrayList.add(contact);
-
-        System.out.println(contact.toString());
-    }
-
-    public void editContact()
-    {
-        System.out.println("Enter the first name of the contact you want to edit: ");
-        String firstName = sc.next();
-        boolean flag = false;
-        for (Contacts contact : ContactsArrayList) {
-            if (firstName.equals(contact.getFirstName())) {
-                contact.editContact();
-                System.out.println("Contact edited successfully!");
-                flag = true;
+    public static void main(String[] args) {
+        System.out.println("welcome to address book program");
+        Scanner sc = new Scanner(System.in);
+        newAddressBook book = new newAddressBook();
+        book.addContact();
+        System.out.println(book.person);
+        System.out.println("Enter the choice \n 1. Edit \n 2. Delete");
+        int option = sc.nextInt();
+        switch (option) {
+            case 1:
+                book.editContact();
+                System.out.println("You have Entered following data");
+                System.out.println(book.person);
+                System.out.println("Thank you for Using the Address book");
                 break;
-            }
-        }
-        System.out.print(ContactsArrayList);
-        if (flag == false) {
-            System.out.println("The contact with first name : " + firstName + " is not found!");
+
+            case 2:
+                book.deleteContact();
+                System.out.println("Address Book details :" + book.person);
+                break;
         }
     }
-    public static void main(String[] darsh) {
-        System.out.println("-------Welcome to Address Book-------");
-        AddressBook addressbook=new AddressBook();
-        System.out.println("If You Want Add Contact Enter Yes Or No");
-        String status =sc.next();
-        if((status.equals("yes")))
-        {
-            addressbook.addContacts();
-        }
+}
+
+class contactDetails {
+    private String firstName;
+    private String lastName;
+    private String addressCity;
+    private String state;
+    private int zip;
+    private int phoneNumber;
+    private String email;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddressCity() {
+        return addressCity;
+    }
+
+    public void setAddressCity(String addressCity) {
+        this.addressCity = addressCity;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getZip() {
+        return zip;
+    }
+
+    public void setZip(int zip) {
+        this.zip = zip;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String toString() {
+        return " FirstName :" + firstName + " LastName :" + lastName + " Address City : " + addressCity + " State : "
+                + state + " Zip :" + zip  + " PhoneNumber : " + phoneNumber + " Email : " + email;
+    }
+
+}
+
+class newAddressBook {
+
+    Scanner sc = new Scanner(System.in);
+    contactDetails person = new contactDetails();
+
+    public void addContact() {
+        System.out.println("Enter First Name: ");
+        String firstName = sc.nextLine();
+
+        System.out.println("Enter last Name: ");
+        String lastName = sc.nextLine();
+
+        System.out.println("Enter your addressCity: ");
+        String addressCity = sc.nextLine();
+
+        System.out.println("Enter your state: ");
+        String state = sc.nextLine();
+
+        System.out.println("Enter zip code : ");
+        int zip = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Enter phone number: ");
+        int phoneNumber = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Enter your EMail ID: ");
+        String email = sc.nextLine();
+
+        person.setFirstName(firstName);
+
+        person.setLastName(lastName);
+
+        person.setAddressCity(addressCity);
+
+        person.setState(state);
+
+        person.setZip(zip);
+
+        person.setPhoneNumber(phoneNumber);
+
+        person.setEmail(email);
+
+        System.out.println("The Contact Details of " + firstName + "\n" + person);
+    }
+    public void editContact() {
+        System.out.println("Enter the firstName of person");
+        String editName = sc.nextLine();
+        if (editName.equalsIgnoreCase(person.getFirstName()))
+            addContact();
         else
-        {
-            System.out.println("Bye......");
-        }
-        System.out.println("If You Want Edit Contact Enter Yes Or No");
-        String edit =sc.next();
-        if((status.equals("yes")))
-        {
-            addressbook.editContact();
-        }
-        else
-        {
-            System.out.println("Bye......");
+            System.out.println("The Entered First Name Is Not Match");
+        editContact();
+    }
+    public void deleteContact() {
+        System.out.println("Enter firstName of the person");
+        String editName = sc.nextLine();
+        if (editName.equals(person.getFirstName())) {
+            System.out.println("Deleted " + person.getFirstName() + " details");
+            person = null;
         }
     }
 }
