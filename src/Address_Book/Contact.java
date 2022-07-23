@@ -1,29 +1,43 @@
 package Address_Book;
 
-public class Contact {
-    String firstName, lastName, email;
+import java.util.Scanner;
+public class Contact
+{
+    String firstName;
+    String lastName;
+    String address;
+    String city;
+    String state;
+    String phoneNumber;
+    String email;
+    String zip;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    void addContact()
+    {
+        Scanner scan=new Scanner(System.in);
 
-    public String getFirstName() {
-        return firstName;
-    }
+        System.out.println("First Name :");
+        this.firstName = scan.nextLine();
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+        System.out.println("Last Name :");
+        this.lastName = scan.nextLine();
 
-    public String getLastName() {
-        return lastName;
-    }
+        System.out.println("Enter the address :");
+        this.address = scan.nextLine();
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        System.out.println("Enter city : ");
+        this.city = scan.nextLine();
 
-    public String getEmail() {
-        return email;
+        System.out.println("Enter state : ");
+        this.state = scan.nextLine();
+
+        System.out.println("Enter Phone Number : ");
+        this.phoneNumber = scan.nextLine();
+
+        System.out.println("Enter Email : ");
+        this.email = scan.nextLine();
+
+        System.out.println("Enter zip : ");
+        this.zip = scan.nextLine();
     }
 }
