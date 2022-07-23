@@ -72,7 +72,7 @@ public class AddressBook {
         while (true) {
             AddressBook addressBook = new AddressBook();
             Scanner scan3 = new Scanner(System.in);
-            System.out.println("Enter the name of Book you want to  access or add  or type 'search' to search persons or press 'q' to quit");
+            System.out.println("Enter the name of Book you want to  access or add  or type 'city' to search persons by city or type 'state' to search by state or press 'q' to quit");
             String bookName = scan3.nextLine();
             if (bookName.equals("q")) {
                 // if (addressBook.list.size() > 0) {
@@ -81,11 +81,18 @@ public class AddressBook {
                 System.out.println("The program is closed");
                 break;
             }
-            else if(bookName.equals("search")) {
+            else if(bookName.equals("city")) {
                 Scanner scan = new Scanner(System.in);
-                System.out.println("Enter the name of city or state you want to search :");
+                System.out.println("Enter the name of city  :");
                 String placeName = scan.nextLine();
-                shelf.showPersons(placeName);
+                shelf.showPersonsByCity(placeName);
+                continue;
+            }
+            else if(bookName.equals("state")) {
+                Scanner scan = new Scanner(System.in);
+                System.out.println("Enter the name of state  :");
+                String placeName = scan.nextLine();
+                shelf.showPersonsByState(placeName);
                 continue;
             }
             int result = shelf.checkBook(bookName);//// (It can return 0 or 1)It will return 1 if book exist b and break
