@@ -6,12 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class AddressBook
-{
+public class AddressBook {
+
+    //	ArrayList<Contact> list = new ArrayList<Contact>();//// It represents a single diary where contact has been stored
     BookList bookList = new BookList();
 
-    void addContact(File file) throws IOException
-    {
+    void addContact(File file) throws IOException {
 
         Contact contact = new Contact();
         contact.addContact();
@@ -19,21 +19,17 @@ public class AddressBook
         Scanner sc = new Scanner(file);
         StringBuffer sb = new StringBuffer();
         BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-        while(sc.hasNext())
-        {
+        while(sc.hasNext()) {
             System.out.println(1);
             sb.append(sc.nextLine());
             sb.append("\n");
         }
         boolean duplicateContact = bookList.duplicateContact(file, contact.firstName);
-        if (duplicateContact == true)
-        {
+        if (duplicateContact == true) {
             System.out.println("It is a duplicate contact.");
             bw.close();
             return;
-        }
-        else
-        {
+        } else {
             sb.append(contactDetails+"\n");
             bw.write(sb.toString());
             bw.flush();
@@ -43,112 +39,100 @@ public class AddressBook
 
     }
 
-    void deletePerson(String name, String bookName) throws IOException
-    {
-        File file = new File("C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
-                + bookName + ".txt");
+    void deletePerson(String name, String bookName) throws IOException {
+        File file = new File(
+                "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
+                        + bookName + ".csv");
         bookList.deleteContact(file, name);
     }
 
-    void editPerson(String name, String bookName) throws IOException
-    {
+    void editPerson(String name, String bookName) throws IOException {
         File file = new File(
                 "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
-                        + bookName + ".txt");
+                        + bookName + ".csv");
         bookList.updateContact(file, bookName);
     }
 
-    boolean viewSortedResult(int option, String bookName) throws IOException
-    {
+    boolean viewSortedResult(int option, String bookName) throws IOException {
         File file = new File(
                 "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
-                        + bookName + ".txt");
+                        + bookName + ".csv");
         return bookList.viewSortedResult(file, option);
     }
 
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) throws IOException {
         // TODO Auto-generated method stub
         BookList shelf = new BookList();
         System.out.println("Welcome to Address Book Program ");
-        while (true)
-        {
+        while (true) {
             AddressBook addressBook = new AddressBook();
             Scanner scan3 = new Scanner(System.in);
             System.out.println(
                     "Enter the name of Book you want to  access or add  or type 'city' to search persons by city or type 'state' to search by state or press 'q' to quit");
             String bookName = scan3.nextLine();
-            if (bookName.equals("q"))
-            {
+            if (bookName.equals("q")) {
+                // if (addressBook.list.size() > 0) {
+                // book.addBook(bookName, addressBook);
+                // }
                 System.out.println("The program is closed");
                 break;
-            }
-            else if (bookName.equals("city"))
-            {
+            } else if (bookName.equals("city")) {
                 Scanner scan = new Scanner(System.in);
                 System.out.println("Enter the name of city  :");
                 String placeName = scan.nextLine();
                 shelf.showPersonsByCity(placeName);
                 continue;
-            }
-            else if (bookName.equals("state"))
-            {
+            } else if (bookName.equals("state")) {
                 Scanner scan = new Scanner(System.in);
                 System.out.println("Enter the name of state  :");
                 String placeName = scan.nextLine();
                 shelf.showPersonsByState(placeName);
                 continue;
             }
-            int result = shelf.checkBook(bookName);
-
-            int condition = 0;
-            File file = new File("C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
-                            + bookName + ".txt");
-            while (true)
-            {
-                if (result == 1)
-                {
+            int result = shelf.checkBook(bookName);//// (It can return 0 or 1)It will return 1 if book exist b and break
+            //// down loop
+            int condition = 0;///// It will keep check on the addressbook created or not
+            File file = new File(
+                    "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
+                            + bookName + ".csv");
+            while (true) {
+                if (result == 1) {
                     break;
                 }
-                System.out.println("Do you want to add/edit/delete/  the contacts (0/1/2) :Press 3 to Go back to main menu : Press 4 to sort contact");
+                System.out.println(
+                        "Do you want to add/edit/delete/  the contacts (0/1/2) :Press 3 to Go back to main menu : Press 4 to sort contact");
                 Scanner scan = new Scanner(System.in);
                 int input = scan.nextInt();
 
-                if (input == 0)
-                {
+                if (input == 0) {
                     addressBook.addContact(file);
 
-                } else if (input == 1)
-                {
+                } else if (input == 1) {
                     Scanner scan1 = new Scanner(System.in);
                     System.out.println("Enter the first name of person you want to edit ");
                     String name = scan1.nextLine();
                     addressBook.editPerson(name, bookName);
 
-                } else if (input == 2)
-                {
+                } else if (input == 2) {
                     Scanner scan2 = new Scanner(System.in);
                     System.out.println("Enter the first name of the person you want to delete : ");
                     String name = scan2.nextLine();
                     addressBook.deletePerson(name, bookName);
                 }
 
-                else if (input == 3)
-                {
+                else if (input == 3) {
                     break;
-                } else if (input == 4)
-                {
+                } else if (input == 4) {
                     Scanner scan4 = new Scanner(System.in);
                     boolean value = true;
-                    while (value)
-                    {
-                        System.out.println("Press \n 0 to sort by contact name \n 1 to sort by city \n 2 to sort by state \n 3 to sort by zip");
+                    while (value) {
+                        System.out.println(
+                                "Press \n 0 to sort by contact name \n 1 to sort by city \n 2 to sort by state \n 3 to sort by zip");
                         int response = scan4.nextInt();
                         value = addressBook.viewSortedResult(response, bookName);
                     }
 
-                } else
-                {
+                } else {
                     System.out.println("Enter the valid command");
                 }
             }
