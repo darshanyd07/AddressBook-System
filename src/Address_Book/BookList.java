@@ -11,22 +11,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-
-public class BookList {
+public class BookList
+{
 
 
-    void addInfo(Contact value) {
+    void addInfo(Contact value)
+    {
         Scanner scan = new Scanner(System.in);
         System.out.println("First Name :");
         value.firstName = scan.nextLine();
@@ -46,16 +36,20 @@ public class BookList {
         value.zip = scan.nextLine();
     }
 
-    void showPersonsByCity(String placeName) throws IOException {
+    void showPersonsByCity(String placeName) throws IOException
+    {
         int count = 0;
         ArrayList<String> lines = new ArrayList<String>();
         File dir = new File(
                 "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_");
         File[] directoryListing = dir.listFiles();
         BufferedReader reader;
-        if (directoryListing != null) {
-            for (File child : directoryListing) {
-                if (child.getName().matches("(.csv)$")) {
+        if (directoryListing != null)
+        {
+            for (File child : directoryListing)
+            {
+                if (child.getName().matches("(.JSON)$"))
+                {
                     reader = new BufferedReader(new FileReader(child));
                     String line = reader.readLine();
                     while (line != null) {
@@ -69,25 +63,31 @@ public class BookList {
             System.out.println("The number of persons are " + matchedContact.size());
             matchedContact.stream().forEach(x -> System.out.println(x.split(",")[0]));
 
-        } else {
+        } else
+        {
             System.out.println("Booklist is empty");
         }
 
     }
 
-    void showPersonsByState(String placeName) throws IOException {
+    void showPersonsByState(String placeName) throws IOException
+    {
         int count = 0;
         ArrayList<String> lines = new ArrayList<String>();
         File dir = new File(
                 "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_");
         File[] directoryListing = dir.listFiles();
         BufferedReader reader;
-        if (directoryListing != null) {
-            for (File child : directoryListing) {
-                if (child.getName().matches("(.csv)$")) {
+        if (directoryListing != null)
+        {
+            for (File child : directoryListing)
+            {
+                if (child.getName().matches("(.JSON)$"))
+                {
                     reader = new BufferedReader(new FileReader(child));
                     String line = reader.readLine();
-                    while (line != null) {
+                    while (line != null)
+                    {
                         lines.add(line);
                         line = reader.readLine();
                     }
@@ -98,33 +98,40 @@ public class BookList {
             System.out.println("The number of persons are " + matchedContact.size());
             matchedContact.stream().forEach(x -> System.out.println(x.split(",")[0]));
 
-        } else {
+        }
+        else
+        {
             System.out.println("Booklist is empty");
         }
     }
 
-    boolean duplicateContact(File file, String firstName) {
+    boolean duplicateContact(File file, String firstName)
+    {
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
             while (line != null) {
-                if (line.split(",")[0].equals(firstName)) {
+                if (line.split(",")[0].equals(firstName))
+                {
                     reader.close();
                     return true;
                 }
                 line = reader.readLine();
             }
-        } catch (IOException e) {
-            // e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
         }
         return false;
     }
 
-    void updateContact(File file, String firstName) throws IOException {
+    void updateContact(File file, String firstName) throws IOException
+    {
         Scanner sc = new Scanner(file);
         StringBuffer buffer = new StringBuffer();
-        while (sc.hasNextLine()) {
+        while (sc.hasNextLine())
+        {
             buffer.append(sc.nextLine() + System.lineSeparator());
         }
         String fileContents = buffer.toString();
@@ -132,7 +139,8 @@ public class BookList {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
         while (line != null) {
-            if (line.split(",")[0].equals(firstName)) {
+            if (line.split(",")[0].equals(firstName))
+            {
                 Contact contact = new Contact();
                 contact.addContact();
                 String oldLine = line;
@@ -158,13 +166,15 @@ public class BookList {
         int track = 0;
         while (sc.hasNextLine())
         {
-            if (sc.nextLine().split(",")[0].equals(firstName)) {
+            if (sc.nextLine().split(",")[0].equals(firstName))
+            {
                 track = 1;
                 continue;
             }
             buffer.append(sc.nextLine() + System.lineSeparator());
         }
-        if (track == 1) {
+        if (track == 1)
+        {
             String fileContents = buffer.toString();
             sc.close();
             FileWriter writer = new FileWriter(file);
@@ -172,24 +182,29 @@ public class BookList {
             writer.flush();
             writer.close();
             System.out.println("Contact deleted successfully");
-        } else {
+        }
+        else
+        {
             System.out.println("No contact found with the given name");
             return;
         }
     }
 
-    boolean viewSortedResult(File file, int sortingChoice) throws IOException {
+    boolean viewSortedResult(File file, int sortingChoice) throws IOException
+    {
         ArrayList<String> lines = new ArrayList<String>();
         BufferedReader reader;
         reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
         boolean value = false;
-        while (line != null) {
+        while (line != null)
+        {
             lines.add(line);
             line = reader.readLine();
         }
         reader.close();
-        switch (sortingChoice) {
+        switch (sortingChoice)
+        {
             case 0:
                 lines.sort((String x, String y) -> x.split(",")[0].compareTo(y.split(",")[0]));
                 lines.forEach((s) -> System.out.println(s));
@@ -214,16 +229,19 @@ public class BookList {
         return value;
     }
 
-    void operations(File file) throws IOException {
+    void operations(File file) throws IOException
+    {
 
         Scanner input = new Scanner(System.in);
-        int condition1 = 0;/// This is for checking the contact name exist or not
-        int condition = 0; /// This is condition for running while loop
-        while (condition == 0) {
+        int condition1 = 0;
+        int condition = 0;
+        while (condition == 0)
+        {
             System.out.println(
                     "Do you want to add/edit/delete contact (0/1/2) :Press 3 to go back to main menu: Press 4 to sort contact");
             int response = input.nextInt();
-            switch (response) {
+            switch (response)
+            {
                 case 0:
                     BufferedWriter b = new BufferedWriter(new FileWriter(file));
                     PrintWriter p = new PrintWriter(b);
@@ -235,7 +253,8 @@ public class BookList {
                     if (duplicateContact == true) {
                         System.out.println("It is a duplicate contact.");
 
-                    } else {
+                    } else
+                    {
                         p.println(contactDetails);
                         p.close();
                     }
@@ -272,16 +291,20 @@ public class BookList {
         }
     }
 
-    int checkBook(String name) throws IOException {
+    int checkBook(String name) throws IOException
+    {
         int result = 0;
         int track = 0;
         File file = new File(
                 "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_" + name
-                        + ".csv");
-        if (!file.exists()) {
+                        + ".JSON");
+        if (!file.exists())
+        {
             System.out.println("Booklist was empty. " + name + " is created.");
             file.createNewFile();
-        } else {
+        }
+        else
+        {
 
             System.out.println("Book exist please go ahead");
             operations(file);

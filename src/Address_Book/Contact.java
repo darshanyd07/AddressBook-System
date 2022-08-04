@@ -35,8 +35,8 @@ public class Contact
     @Override
     public String toString()
     {
-        return "firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
-                + ", state=" + state + ", phoneNumber=" + phoneNumber + ", email=" + email + ", zip=" + zip ;
+        return "{FirstName :" + firstName + ", LastName :" + lastName + ", Address :" + address + ", City :" + city
+                + ", State :" + state + ", PhoneNumber :" + phoneNumber + ", Email :" + email + ", Zip :" + zip + "}";
     }
 
 }
