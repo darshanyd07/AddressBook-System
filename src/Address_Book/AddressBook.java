@@ -1,160 +1,57 @@
 package Address_Book;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.sql.*;
 import java.util.Scanner;
 
-public class AddressBook
-{
+public class AddressBook {
 
+    public static void main(String darsh[]) {
+        DataInputStream d = new DataInputStream(System.in);
 
-    BookList bookList = new BookList();
+        try {
+            System.out.println("----------SQL Operations------------");
+            String dbURL = "jdbc:mysql://localhost/payroll_service";
+            System.out.println("DataBase Has Connected");
+            String username = "root";
+            String password = "yuktadarsh";
+            Connection conn = DriverManager.getConnection(dbURL, username, password);
+            System.out.println("Connection Succesfully......");
+            Statement stmt = conn.createStatement();
 
-    void addContact(File file) throws IOException
-    {
-
-        Contact contact = new Contact();
-        contact.addContact();
-        String contactDetails = contact.toString();
-        Scanner sc = new Scanner(file);
-        StringBuffer sb = new StringBuffer();
-        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-        while(sc.hasNext()) {
-            System.out.println(1);
-            sb.append(sc.nextLine());
-            sb.append("\n");
-        }
-        boolean duplicateContact = bookList.duplicateContact(file, contact.firstName);
-        if (duplicateContact == true)
-        {
-            System.out.println("It is a duplicate contact.");
-            bw.close();
-            return;
-        } else {
-            sb.append(contactDetails+"\n");
-            bw.write(sb.toString());
-            bw.flush();
-            bw.close();
-            System.out.println("Contact added successfully");
-        }
-
-    }
-
-    void deletePerson(String name, String bookName) throws IOException
-    {
-        File file = new File(
-                "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
-                        + bookName + ".JSON");
-        bookList.deleteContact(file, name);
-    }
-
-    void editPerson(String name, String bookName) throws IOException
-    {
-        File file = new File(
-                "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
-                        + bookName + ".JSON");
-        bookList.updateContact(file, bookName);
-    }
-
-    boolean viewSortedResult(int option, String bookName) throws IOException
-    {
-        File file = new File(
-                "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
-                        + bookName + ".JSON");
-        return bookList.viewSortedResult(file, option);
-    }
-
-    public static void main(String[] args) throws IOException
-    {
-        // TODO Auto-generated method stub
-        BookList shelf = new BookList();
-        System.out.println("Welcome to Address Book Program ");
-        while (true)
-        {
-            AddressBook addressBook = new AddressBook();
-            Scanner scan3 = new Scanner(System.in);
-            System.out.println(
-                    "Enter the name of Book you want to  access or add  or type 'city' to search persons by city or type 'state' to search by state or press 'q' to quit");
-            String bookName = scan3.nextLine();
-            if (bookName.equals("q"))
+            System.out.println("You Want To Table Display ? ");
+            String se_sta = d.readLine();
+            if(se_sta.equals("yes"))
             {
-                System.out.println("The program is closed");
-                break;
-            } else if (bookName.equals("city"))
-            {
-                Scanner scan = new Scanner(System.in);
-                System.out.println("Enter the name of city  :");
-                String placeName = scan.nextLine();
-                shelf.showPersonsByCity(placeName);
-                continue;
-            } else if (bookName.equals("state"))
-            {
-                Scanner scan = new Scanner(System.in);
-                System.out.println("Enter the name of state  :");
-                String placeName = scan.nextLine();
-                shelf.showPersonsByState(placeName);
-                continue;
+                String sql = "select * from  employee;";
+                ResultSet rs = stmt.executeQuery(sql);
+                System.out.println("eid   ename   age    salary  city");
+                System.out.println("-----------------------------");
+                while (rs.next())
+                {
+                    int eid = rs.getInt("Id");
+                    String ename = rs.getString("Name");
+                    int eage = rs.getInt("Age");
+                    int salary = rs.getInt("Salary");
+                    String ecity = rs.getString("city");
+                    System.out.println(+eid+"   "+ename+"   "+eage+"  "+salary+"  "+ecity);
+                }
+                System.out.println("-----------------------------");
+                System.out.println("Display Table  Successfully");
+                System.out.println("-----------------------------");
+                System.exit(0);
+
             }
-            int result = shelf.checkBook(bookName);
-            int condition = 0;
-            File file = new File(
-                    "C:\\Users\\HP\\IdeaProjects\\Day9_AddressBook System\\src\\Data_"
-                            + bookName + ".JSON");
-            while (true)
+            else if(se_sta.equals("no"))
             {
-                if (result == 1)
-                {
-                    break;
-                }
-                System.out.println(
-                        "Do you want to add/edit/delete/  the contacts (0/1/2) :Press 3 to Go back to main menu : Press 4 to sort contact");
-                Scanner scan = new Scanner(System.in);
-                int input = scan.nextInt();
-
-                if (input == 0)
-                {
-                    addressBook.addContact(file);
-
-                } else if (input == 1)
-                {
-                    Scanner scan1 = new Scanner(System.in);
-                    System.out.println("Enter the first name of person you want to edit ");
-                    String name = scan1.nextLine();
-                    addressBook.editPerson(name, bookName);
-
-                }
-                else if (input == 2)
-                {
-                    Scanner scan2 = new Scanner(System.in);
-                    System.out.println("Enter the first name of the person you want to delete : ");
-                    String name = scan2.nextLine();
-                    addressBook.deletePerson(name, bookName);
-                }
-
-                else if (input == 3)
-                {
-                    break;
-                } else if (input == 4)
-                {
-                    Scanner scan4 = new Scanner(System.in);
-                    boolean value = true;
-                    while (value) {
-                        System.out.println(
-                                "Press \n 0 to sort by contact name \n 1 to sort by city \n 2 to sort by state \n 3 to sort by zip");
-                        int response = scan4.nextInt();
-                        value = addressBook.viewSortedResult(response, bookName);
-                    }
-
-                }
-                else
-                {
-                    System.out.println("Enter the valid command");
-                }
+                System.out.println("Exit Successfully");
+                System.exit(0);
             }
+
+
+        } catch (Exception e)
+        {
+            System.out.println(e);
         }
-
     }
-
 }
