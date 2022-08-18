@@ -75,6 +75,48 @@ public class AddressBook {
 
             }
 
+            System.out.println("You Want To Insert Rows ? ");
+            String in_sta = d.readLine();
+            if( in_sta.equals("yes"))
+            {
+                System.out.println("How Many Rows You Want ? ");
+                int num = Integer.parseInt(d.readLine());
+
+                for( int i = 0 ; i<num;i++)
+                {
+                    System.out.println("Enter ID ");
+                    int id = Integer.parseInt(d.readLine());
+
+                    System.out.println("Enter Name ");
+                    String name = d.readLine();
+                    System.out.println("Enter Age ");
+                    int age = Integer.parseInt(d.readLine());
+
+                    System.out.println("Enter Salary ");
+                    int Salary = Integer.parseInt(d.readLine());
+
+
+                    System.out.println("Enter City ");
+                    String city = d.readLine();
+
+                    System.out.println("Enter Date ");
+                    String Date = d.readLine();
+
+                    System.out.println("Enter State ");
+                    String State = d.readLine();
+
+                    String inserT ="insert into employee values("+id+",'"+name+"',"+age+","+Salary+",'"+city+"','"+Date+"','"+State+"');";
+                    PreparedStatement st = conn.prepareStatement(inserT);
+                    st.execute();
+                    System.out.println("Insert Records Successfully");
+                }
+
+            }
+            else if(in_sta.equals("no"))
+            {
+                System.out.println("Ok Darsh....");
+            }
+
 
         } catch (Exception e)
         {
