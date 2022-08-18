@@ -23,9 +23,9 @@ public class AddressBook {
             String se_sta = d.readLine();
             if(se_sta.equals("yes"))
             {
-                String sql = "select * from  employee ;";
+                String sql = "select * from employee where date_add between '2021-04-09' and '2021-04-10'  ;";
                 ResultSet rs = stmt.executeQuery(sql);
-                System.out.println("eid   ename   age    salary  city");
+                System.out.println("eid   ename   age    salary  city ");
                 System.out.println("-----------------------------");
                 while (rs.next())
                 {
