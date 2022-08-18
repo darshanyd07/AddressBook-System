@@ -23,7 +23,7 @@ public class AddressBook {
             String se_sta = d.readLine();
             if(se_sta.equals("yes"))
             {
-                String sql = "select * from  employee;";
+                String sql = "select * from  employee ;";
                 ResultSet rs = stmt.executeQuery(sql);
                 System.out.println("eid   ename   age    salary  city");
                 System.out.println("-----------------------------");
@@ -45,7 +45,34 @@ public class AddressBook {
             else if(se_sta.equals("no"))
             {
                 System.out.println("Exit Successfully");
-                System.exit(0);
+
+            }
+            System.out.println("You want Update Some Records");
+            String upa_sta = d.readLine();
+
+            if( upa_sta.equals("yes"))
+            {
+                System.out.println("How Many Rows You Want Update ? ");
+                int upa_num = Integer.parseInt(d.readLine());
+                for(int y = 0;y < upa_num;y++)
+                {
+                    System.out.println("Enter You Want Update Name ");
+                    String up_name = d.readLine();
+
+                    System.out.println("Enter You Want that update Id    ");
+                    int up_id = Integer.parseInt(d.readLine());
+
+                    String update = "update  employee  set Name  = '"+up_name+"'  where Id = " +up_id+";";
+                    stmt.executeUpdate(update);
+                    System.out.println("Update Record Successfully");
+                }
+
+            }
+            else if(upa_sta.equals("no"))
+            {
+                System.out.println("Ok Darsh....");
+
+
             }
 
 
